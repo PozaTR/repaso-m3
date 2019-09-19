@@ -1,48 +1,61 @@
 import React from 'react';
 import './App.scss';
 import { pokemonService } from './services/pokemonService';
+import { Route, Switch, Link } from 'react-router-dom';
+import PokeList from './components/PokeList';
+import Pokemon from './components/Pokemon';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      pokemons: []
+      pokemons: [],
+      pokemonFiltered: []
     }
+
+    this.searchPokemon=this.searchPokemon.bind(this);
   }
 
   componentDidMount() {
     pokemonService()
     .then(data => {
       this.setState({
-        pokemons: data
-      }, () => console.log(data))
+        pokemons: data,
+        pokemonFiltered: data
+      })
     });
   }
+
+  searchPokemon(event) {
+    event.preventDefault();
+    const namePokemon = event.currentTarget.value;
+    const pokemonFiltered = this.state.pokemons.filter(pokemon => pokemon.name.indexOf(namePokemon) >= 0);
+    this.setState({
+      pokemonFiltered: pokemonFiltered
+    })
+  }
+
+
 
   render() {
     return (
     <div className="App">
       <h1 className="pokemons__main-title">Mi lista de pokemons</h1>
-      <div className="pokemons__container">
-      <ol className="pokemons__list">
-        {this.state.pokemons.map(pokemon => 
-          <li key={pokemon.id} className="pokemons__list__element"> 
-          <div className="pokemon__card">
-          <img className="pokemon__image" src={pokemon.url} alt={pokemon.name}/>
-            <h2 className="pokemon__name" >{pokemon.name}</h2>
-            <ul >
-              {pokemon.types.map((type, index) => 
-                <li className="pokemon__types" key={`${pokemon.id}-${index}`}>
-                <p className="pokemon__types__element">{type}</p>
-                </li>
-              )}
-            </ul>
-          </div>
-          </li>
-        )}
-      </ol>
-      </div>
+      <Switch>
+        <Route exact path="/" render={routerProps => (
+            <PokeList match={routerProps.match} pokemonFiltered={this.state.pokemonFiltered} searchPokemon={this.searchPokemon}/>     
+        )}/>
+        <Route path="/pokemon/:id" render={routerProps => {
+          const pokemonCard = this.state.pokemons.find(pokemon => pokemon.id === parseInt(routerProps.match.params.id))
+          return (
+            <React.Fragment>
+              { pokemonCard ? <Pokemon pokemon={pokemonCard}/> : <div>No he encontrado tu pokemon</div> }
+              <Link to="/">Volver al listado de Pokemons</Link>
+            </React.Fragment>
+        )}} />
+      </Switch>
     </div>
     );
   }
