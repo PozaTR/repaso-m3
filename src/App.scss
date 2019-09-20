@@ -6,10 +6,15 @@
   text-align:center;
 }
 
+.pokemons__main-container {
+  text-align:center;
+}
+
 .pokemons__selector {
-  margin:16px;
-  width: 200px;
+  border: 2px solid #4dad5b;
   height: 20px;
+  width: 200px;
+  margin:16px 16px 24px;
 }
 
 .pokemons__container {
@@ -42,10 +47,9 @@
   }
 }
 
-
 .pokemon__card {
   align-items:center;
-  background-color: rgb(49, 49, 49);
+  background-color: rgb(85, 84, 84);
   border: 2px solid  #4dad5b;
   border-radius: 8px;
   color: #fff;
@@ -54,12 +58,14 @@
   font-size: 18px;
   height: 225px;
   justify-content:center;
+  margin-bottom: 20px;
   text-align: center;
   width:150px;
 }
   
 .pokemon__name {
   text-transform: capitalize;
+  font-size: 20px;
 }
 
 .pokemon__types {
@@ -69,4 +75,8 @@
 
 .pokemon__types__element {
   padding: 4px;
+}
+
+.pokemon__link {
+  text-decoration:none;
 }

@@ -42,20 +42,24 @@ class App extends React.Component {
   render() {
     return (
     <div className="App">
-      <h1 className="pokemons__main-title">Mi lista de pokemons</h1>
-      <Switch>
-        <Route exact path="/" render={routerProps => (
-            <PokeList match={routerProps.match} pokemonFiltered={this.state.pokemonFiltered} searchPokemon={this.searchPokemon}/>     
-        )}/>
-        <Route path="/pokemon/:id" render={routerProps => {
-          const pokemonCard = this.state.pokemons.find(pokemon => pokemon.id === parseInt(routerProps.match.params.id))
-          return (
-            <React.Fragment>
-              { pokemonCard ? <Pokemon pokemon={pokemonCard}/> : <div>No he encontrado tu pokemon</div> }
-              <Link to="/">Volver al listado de Pokemons</Link>
-            </React.Fragment>
-        )}} />
-      </Switch>
+      <header>
+        <h1 className="pokemons__main-title">Mi lista de pokemons</h1>
+      </header>
+      <main className="pokemons__main-container">
+        <Switch>
+          <Route exact path="/" render={routerProps => (
+              <PokeList match={routerProps.match} pokemonFiltered={this.state.pokemonFiltered} searchPokemon={this.searchPokemon}/>     
+          )}/>
+          <Route path="/pokemon/:id" render={routerProps => {
+            const pokemonCard = this.state.pokemons.find(pokemon => pokemon.id === parseInt(routerProps.match.params.id))
+            return (
+              <React.Fragment>
+                { pokemonCard ? <Pokemon pokemon={pokemonCard}/> : <div>No he encontrado tu pokemon</div> }
+                <Link to="/">Volver al listado de Pokemons</Link>
+              </React.Fragment>
+          )}} />
+        </Switch>
+      </main>
     </div>
     );
   }

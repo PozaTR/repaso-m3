@@ -1,8 +1,7 @@
 import React from 'react';
 
-class Pokemon extends React.Component {
-    render() {
-      const { pokemon } = this.props
+ const Pokemon = props =>  {
+      const { pokemon } = props;
         return(
             <div  className="pokemon__card">
               <img className="pokemon__image" src={pokemon.url} alt={pokemon.name}/>
@@ -16,7 +15,6 @@ class Pokemon extends React.Component {
               </ul>
           </div>
         )
-    }
 }
 
 export default Pokemon;

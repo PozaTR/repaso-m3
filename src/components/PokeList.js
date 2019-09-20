@@ -16,7 +16,7 @@ class Pokelist extends React.Component {
             <ol className="pokemons__list">
               {pokemonFiltered.map(pokemon => 
                 <li key={pokemon.id} className="pokemons__list__element">
-                  <Link to={`/pokemon/${pokemon.id}`}>
+                  <Link className="pokemon__link" to={`/pokemon/${pokemon.id}`}>
                     <Pokemon  pokemon={pokemon}/>
                   </Link>
                 </li>
